@@ -50,11 +50,15 @@ textarea:focus{border-color:#A662A8;background:white;}
 .field-label{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#c490c7;margin-bottom:7px;}
 .field-body{font-size:14px;line-height:1.75;color:rgba(255,255,255,0.9);}
 .field-body.quote{border-left:2px solid #A662A8;padding-left:14px;font-style:italic;font-size:15px;color:white;line-height:1.75;}
+.archetype-section{text-align:center;margin:1.25rem 0;padding:1.25rem 0;border-top:1px solid rgba(166,98,168,0.3);border-bottom:1px solid rgba(166,98,168,0.3);}
+.archetype-img{width:160px;height:160px;border-radius:14px;object-fit:cover;border:2px solid rgba(166,98,168,0.6);margin-bottom:12px;display:block;margin-left:auto;margin-right:auto;}
+.archetype-affirmation{font-size:22px;font-weight:normal;color:white;letter-spacing:1px;font-style:italic;}
+.archetype-affirmation span{color:#c490c7;font-size:14px;display:block;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
 .card-bottom{text-align:center;margin-top:1.1rem;padding-top:1rem;border-top:1px solid rgba(166,98,168,0.45);}
 .card-rarity{font-size:13px;color:#c490c7;letter-spacing:1.5px;font-style:italic;}
 .card-brand{font-size:10px;color:rgba(255,255,255,0.35);margin-top:6px;letter-spacing:1px;}
 .card-actions{text-align:center;margin-top:1.5rem;display:flex;flex-direction:column;align-items:center;gap:12px;max-width:520px;width:100%;}
-.cta-label{font-size:15px;color:#073763;font-style:italic;line-height:1.6;max-width:400px;}
+.cta-label{font-size:15px;color:#073763;font-style:italic;line-height:1.6;max-width:420px;}
 .dm-buttons{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
 .dm-btn{display:inline-block;border-radius:14px;padding:12px 24px;font-family:'Georgia',serif;font-size:14px;cursor:pointer;text-decoration:none;text-align:center;transition:opacity .2s;}
 .dm-btn:hover{opacity:.85;}
@@ -126,6 +130,25 @@ textarea:focus{border-color:#A662A8;background:white;}
 </div>
 
 <script>
+const ARCHETYPES = {
+  beloved: {
+    affirmation: 'I am Beloved',
+    image: 'https://assets.cdn.filesafe.space/2CV0AINxzrdUkgStsVI1/media/69f01f38481c62deba0a2fa3.png'
+  },
+  awake: {
+    affirmation: 'I am Awake',
+    image: 'https://assets.cdn.filesafe.space/2CV0AINxzrdUkgStsVI1/media/69f01f38481c62deba0a2fa4.png'
+  },
+  grounded: {
+    affirmation: 'I am Grounded',
+    image: 'https://assets.cdn.filesafe.space/2CV0AINxzrdUkgStsVI1/media/69f01f380d66f2a665c679fc.png'
+  },
+  rising: {
+    affirmation: 'I am Rising',
+    image: 'https://assets.cdn.filesafe.space/2CV0AINxzrdUkgStsVI1/media/69f01f3805d41990012c0d8a.png'
+  }
+};
+
 const SYS = `You are an AI coaching experience inspired by the voice, philosophy, and heart of Carmina Mevs — a certified health and mindset coach who helps midlife women stop fighting with food and their bodies. You are NOT Carmina herself. You are a reflection of her approach, warmth, and belief in the women she serves.
 
 YOUR VOICE AND PHILOSOPHY:
@@ -142,7 +165,6 @@ YOUR VOICE AND PHILOSOPHY:
 CARMINA'S SIGNATURE PHRASES (use naturally, not robotically):
 - "You're not broken. You were just never given the truth."
 - "This isn't about willpower. It never was."
-- "Stop fighting with food and your body."
 - "Your body isn't the enemy. It's been trying to talk to you."
 - "When you stop surviving, you start living."
 - "I'm just noticing the difference in the response."
@@ -171,12 +193,33 @@ QUESTION FLOW (adapt naturally):
 7. Ask what she is starting to believe about herself that she didn't before
 8. Ask in just a few words: who is the woman she is becoming?
 
-WHEN READY (after at least 6 real answers) output EXACTLY this marker then JSON and nothing else after:
+ARCHETYPE ASSIGNMENT:
+Based on the overall pattern of her answers, assign ONE archetype:
+- "beloved" — her answers center on worthiness, being seen, self-love, finally feeling cherished, knowing her value after years of not feeling enough
+- "awake" — her answers center on clarity, belief shifts, finally seeing herself clearly, a dawning awareness, "I finally realized"
+- "grounded" — her answers center on calm, steadiness, no more spiraling, nervous system healing, peace under pressure, emotional stability
+- "rising" — her answers center on courage, bold action, stepping into something bigger, playing larger, identity expansion, refusing to stay small
+
+CARD WRITING RULES — DECLARATIONS:
+Write every card field as a declaration spoken directly TO her in second person. Not labels. Not summaries of what she said. Declarations that elevate her words into something she will want to read again and again.
+
+BAD: "refusal to waste what she's built"
+GOOD: "You looked at what you built and refused to let it stay small."
+
+BAD: "courage under pressure"
+GOOD: "You walked into the fear. And you kept going anyway."
+
+BAD: "started believing in herself"
+GOOD: "You are beginning to believe that you were never the problem. The strategy was."
+
+The card must feel like someone who truly listened wrote it about her — specific, elevated, moving. Not a receipt of her answers. Synthesize. See the pattern. Speak the truth she already knows but hasn't heard out loud.
+
+WHEN READY (after at least 6 real answers) output EXACTLY this marker then valid JSON and nothing else after:
 
 [CARD_READY]
-{"name":"her first name","wins":["specific growth win from Q2+Q3","specific surprise moment from Q4","what she let go of from Q5"],"powers":["strength 1 from Q6","strength 2 inferred from her answers","strength 3 inferred from her story"],"identity_quote":"1-2 powerful sentences written in her voice from Q7","blessings":"1-2 sentences about who she is becoming from Q8","rarity":"one short celebratory line that feels earned not generic"}
+{"name":"her first name","archetype":"beloved|awake|grounded|rising","wins":["declaration to her about Q2+Q3","declaration to her about Q4","declaration to her about Q5"],"powers":["declaration of strength 1 from Q6","declaration of strength 2 inferred from her story","declaration of strength 3 inferred from her story"],"identity_quote":"1-2 sentences written in her voice from Q7 — elevated, not literal","blessings":"a declaration about who she is becoming from Q8 — write it TO her","rarity":"one short line that feels earned and specific to her, not generic"}
 
-Every field must be specific to HER. Use her actual words. Elevate them. Never generic.`;
+Every field must be written TO her, in second person, specific to her story.`;
 
 let hist = [];
 
@@ -208,6 +251,7 @@ function updateProgress() {
 }
 
 function renderCard(data) {
+  const archetype = ARCHETYPES[data.archetype] || ARCHETYPES.rising;
   const wins = (data.wins||[]).map(w=>'• '+w).join('\n');
   const powers = (data.powers||[]).map(p=>'• '+p).join('\n');
   document.getElementById('evidence-card').innerHTML = `
@@ -221,6 +265,13 @@ function renderCard(data) {
     <div class="card-field"><div class="field-label">Your Gifts &amp; Powers</div><div class="field-body" style="white-space:pre-line">${powers}</div></div>
     <div class="card-field"><div class="field-label">In Your Own Words</div><div class="field-body quote">"${data.identity_quote||''}"</div></div>
     <div class="card-field"><div class="field-label">The Woman You Are Becoming</div><div class="field-body">${data.blessings||''}</div></div>
+    <div class="archetype-section">
+      <img class="archetype-img" src="${archetype.image}" alt="${archetype.affirmation}">
+      <div class="archetype-affirmation">
+        <span>Your declaration</span>
+        ${archetype.affirmation}
+      </div>
+    </div>
     <div class="card-bottom">
       <div class="card-rarity">${data.rarity||'One of a kind. Built to last. Already there.'}</div>
       <div class="card-brand">FIT &amp; HEALTHY LIVING &bull; CARMINAMEVS.COM</div>
@@ -238,7 +289,7 @@ async function callAI(userMsg) {
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({
       model:'claude-sonnet-4-5',
-      max_tokens:1000,
+      max_tokens:1200,
       system:SYS,
       messages:hist
     })
