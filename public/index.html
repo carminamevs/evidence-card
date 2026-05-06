@@ -134,6 +134,7 @@ textarea:focus{border-color:#A662A8;background:white;}
   <div class="evidence-card" id="evidence-card">
     <div class="deco1"></div><div class="deco2"></div>
   </div>
+  <button class="flip-btn" id="flip-btn" onclick="showBack()" style="display:none;max-width:520px;width:100%;margin-top:0.75rem;">See your daily declarations →</button>
   <div class="card-actions">
     <p class="cta-label">If you're ready for support becoming her, DM Carmina the word <strong>CURIOUS</strong> — no pitch, no pressure. Just a real conversation.</p>
     <div class="dm-buttons">
@@ -335,10 +336,12 @@ function renderCard(data) {
     <div class="card-bottom">
       <div class="card-rarity">${data.rarity||'One of a kind. Built to last. Already there.'}</div>
       <div class="card-brand">FIT &amp; HEALTHY LIVING &bull; CARMINAMEVS.COM</div>
-    </div>`;
+    </div>
+`;
   document.getElementById('card-intro-text').textContent = (data.name||'Friend') + ', here is your Evidence of Things Unseen.';
   document.getElementById('chat-window').style.display = 'none';
   document.getElementById('card-section').style.display = 'block';
+  document.getElementById('flip-btn').style.display='block';
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
