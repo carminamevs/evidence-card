@@ -51,7 +51,7 @@ textarea:focus{border-color:#A662A8;background:white;}
 .field-body{font-size:14px;line-height:1.75;color:rgba(255,255,255,0.9);}
 .field-body.quote{border-left:2px solid #A662A8;padding-left:14px;font-style:italic;font-size:15px;color:white;line-height:1.75;}
 .archetype-section{text-align:center;margin:1.25rem 0;padding:1.25rem 0;border-top:1px solid rgba(166,98,168,0.3);border-bottom:1px solid rgba(166,98,168,0.3);}
-.archetype-img{width:160px;height:160px;border-radius:14px;object-fit:cover;border:2px solid rgba(166,98,168,0.6);margin-bottom:12px;display:block;margin-left:auto;margin-right:auto;}
+.archetype-img{width:100%;max-width:280px;height:420px;border-radius:14px;object-fit:cover;object-position:top;border:2px solid rgba(166,98,168,0.6);margin-bottom:12px;display:block;margin-left:auto;margin-right:auto;}
 .archetype-affirmation{font-size:22px;font-weight:normal;color:white;letter-spacing:1px;font-style:italic;}
 .archetype-affirmation span{color:#c490c7;font-size:14px;display:block;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
 .card-bottom{text-align:center;margin-top:1.1rem;padding-top:1rem;border-top:1px solid rgba(166,98,168,0.45);}
@@ -73,6 +73,21 @@ textarea:focus{border-color:#A662A8;background:white;}
   .dm-buttons{flex-direction:column;align-items:center;}
   .dm-btn{width:100%;max-width:300px;}
 }
+
+.flip-btn{background:transparent;border:1px solid rgba(166,98,168,0.6);color:#c490c7;border-radius:12px;padding:10px 24px;font-family:'Georgia',serif;font-size:13px;cursor:pointer;margin-top:1rem;letter-spacing:0.5px;transition:all .2s;width:100%;}
+.flip-btn:hover{background:rgba(166,98,168,0.15);color:white;}
+.card-back{display:none;background:#073763;border-radius:22px;padding:2rem;border:2px solid #A662A8;color:white;font-family:'Georgia',serif;position:relative;overflow:hidden;margin-top:1rem;}
+.back-deco1{position:absolute;top:-30px;right:-30px;width:90px;height:90px;border-radius:50%;background:rgba(166,98,168,0.13);pointer-events:none;}
+.back-deco2{position:absolute;bottom:-25px;left:-25px;width:65px;height:65px;border-radius:50%;background:rgba(166,98,168,0.09);pointer-events:none;}
+.back-top{text-align:center;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid rgba(166,98,168,0.45);}
+.back-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#c490c7;margin-bottom:8px;}
+.back-affirmation-title{font-size:22px;font-weight:normal;color:white;font-style:italic;}
+.back-tagline{font-size:12px;color:rgba(255,255,255,0.55);font-style:italic;margin-top:6px;line-height:1.5;}
+.affirmation-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px;}
+.affirmation-item{font-size:14px;line-height:1.75;color:rgba(255,255,255,0.9);padding-left:20px;position:relative;}
+.affirmation-item::before{content:'•';position:absolute;left:0;color:#A662A8;font-size:18px;line-height:1.4;}
+.back-footer{text-align:center;margin-top:1.25rem;padding-top:1rem;border-top:1px solid rgba(166,98,168,0.45);}
+.back-brand{font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:1px;}
 </style>
 </head>
 <body>
@@ -127,25 +142,69 @@ textarea:focus{border-color:#A662A8;background:white;}
     </div>
     <p class="hint-text">Screenshot your card and keep it somewhere you'll see it. You've earned this.</p>
   </div>
+  <div class="card-back" id="card-back">
+    <div class="back-deco1"></div><div class="back-deco2"></div>
+    <div class="back-top">
+      <div class="back-label">Your Daily Declarations</div>
+      <div class="back-affirmation-title" id="back-title"></div>
+      <div class="back-tagline" id="back-tagline"></div>
+    </div>
+    <ul class="affirmation-list" id="affirmation-list"></ul>
+    <div class="back-footer">
+      <div class="back-brand">FIT &amp; HEALTHY LIVING &bull; CARMINAMEVS.COM</div>
+    </div>
+  </div>
 </div>
 
 <script>
 const ARCHETYPES = {
   beloved: {
     affirmation: 'I am Beloved',
-    image: 'https://assets.cdn.filesafe.space/2CV0AINxzrdUkgStsVI1/media/69f01f38481c62deba0a2fa3.png'
+    image: 'https://assets.cdn.filesafe.space/2CV0AINxzrdUkgStsVI1/media/69f01f38481c62deba0a2fa3.png',
+    tagline: 'For the woman whose wound was worthiness — she is learning she was never too much or not enough.',
+    affirmations: [
+      'I am worthy of love simply because I exist — not because of what I weigh, produce, or prove.',
+      'I receive care without guilt. I rest without shame. I take up space without apology.',
+      'My body is not my enemy. It has carried me through everything. I choose to treat it as sacred.',
+      'I no longer shrink to make others comfortable. I belong in every room I enter.',
+      'God sees me fully and loves me completely. That is enough. I am enough.'
+    ]
   },
   awake: {
     affirmation: 'I am Awake',
-    image: 'https://assets.cdn.filesafe.space/2CV0AINxzrdUkgStsVI1/media/69f01f38481c62deba0a2fa4.png'
+    image: 'https://assets.cdn.filesafe.space/2CV0AINxzrdUkgStsVI1/media/69f01f38481c62deba0a2fa4.png',
+    tagline: 'For the woman who finally sees clearly — the fog has lifted and she is not going back.',
+    affirmations: [
+      'I see myself clearly now — not through the eyes of old failures, but through the truth of who I am becoming.',
+      'I no longer believe every thought I think. I question the stories that have kept me small.',
+      'What I know now cannot be unknown. I move forward with open eyes and an open heart.',
+      'I was never broken. I was never the problem. I just hadn’t been given the right truth yet.',
+      'Clarity is my superpower. I trust what I see. I trust what I know. I trust myself.'
+    ]
   },
   grounded: {
     affirmation: 'I am Grounded',
-    image: 'https://assets.cdn.filesafe.space/2CV0AINxzrdUkgStsVI1/media/69f01f380d66f2a665c679fc.png'
+    image: 'https://assets.cdn.filesafe.space/2CV0AINxzrdUkgStsVI1/media/69f01f380d66f2a665c679fc.png',
+    tagline: 'For the woman who found her calm — she no longer spirals, she steadies.',
+    affirmations: [
+      'I am not my reaction. I have the power to pause, breathe, and choose my response.',
+      'One hard day does not define my journey. I recover. I reset. I keep going.',
+      'My nervous system is healing. Peace is not something I have to earn — it is something I am building.',
+      'I am the steadiest person in my own life. I do not abandon myself when things get hard.',
+      'What used to derail me now just passes through. I bend. I do not break. I am grounded.'
+    ]
   },
   rising: {
     affirmation: 'I am Rising',
-    image: 'https://assets.cdn.filesafe.space/2CV0AINxzrdUkgStsVI1/media/69f01f3805d41990012c0d8a.png'
+    image: 'https://assets.cdn.filesafe.space/2CV0AINxzrdUkgStsVI1/media/69f01f3805d41990012c0d8a.png',
+    tagline: 'For the woman stepping into something bigger — she stopped playing small and she is not looking back.',
+    affirmations: [
+      'I refuse to waste what I have built. Every hard thing I survived was preparation for this.',
+      'I do not wait until I feel ready. I move, and readiness follows.',
+      'Playing small is not humility. It is fear. I choose courage — again and again and again.',
+      'I invest in myself without guilt. My growth is not a luxury. It is a responsibility.',
+      'The woman I am becoming has no room for the stories that kept me here. I am rising. Watch me.'
+    ]
   }
 };
 
@@ -252,6 +311,7 @@ function updateProgress() {
 
 function renderCard(data) {
   const archetype = ARCHETYPES[data.archetype] || ARCHETYPES.rising;
+  window._currentArchetype = archetype;
   const wins = (data.wins||[]).map(w=>'• '+w).join('\n');
   const powers = (data.powers||[]).map(p=>'• '+p).join('\n');
   document.getElementById('evidence-card').innerHTML = `
@@ -280,6 +340,20 @@ function renderCard(data) {
   document.getElementById('chat-window').style.display = 'none';
   document.getElementById('card-section').style.display = 'block';
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showBack() {
+  const back = document.getElementById('card-back');
+  const list = document.getElementById('affirmation-list');
+  const title = document.getElementById('back-title');
+  const tagline = document.getElementById('back-tagline');
+  if (!window._currentArchetype) return;
+  const a = window._currentArchetype;
+  title.textContent = a.affirmation;
+  tagline.textContent = a.tagline;
+  list.innerHTML = a.affirmations.map(af => `<li class="affirmation-item">${af}</li>`).join('');
+  back.style.display = 'block';
+  back.scrollIntoView({behavior:'smooth'});
 }
 
 async function callAI(userMsg) {
